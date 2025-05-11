@@ -11,6 +11,6 @@ CRON_JOBS="
 (crontab -l; echo "$CRON_JOBS") | crontab -
 
 echo "✅ Cron jobs ba movafaghiat ezafe shod!"
-echo "✅ کرون جاب‌های فعال در حال حاضر:"
+echo "✅ Cron Haye Active:"
 sleep 1
 crontab -l
