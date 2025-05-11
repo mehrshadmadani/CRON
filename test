@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Tarif cron jobs
+CRON_JOBS="
+0 * * * * sync; echo 1 > /proc/sys/vm/drop_caches && sync; echo 2 > /proc/sys/vm/drop_caches && sync; echo 3 > /proc/sys/vm/drop_caches
+0 2 * * * DEBIAN_FRONTEND=noninteractive sudo apt-get update && sudo apt-get upgrade -y
+0 3 * * * sudo reboot
+0 4 * * 7 find /var/log -type f -name \"*.log\" -mtime +7 -delete"
+
+# Ezafe kardane cron jobs be crontab
+(crontab -l; echo "$CRON_JOBS") | crontab -
+
+echo "✅ Cron jobs ba movafaghiat ezafe shod!"
