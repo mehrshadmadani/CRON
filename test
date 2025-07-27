@@ -1,16 +1,23 @@
 #!/bin/bash
 
-# Tarif cron jobs
+# Tarif cron jobs baraye panel VPN
 CRON_JOBS="
-0 * * * * sync; echo 1 > /proc/sys/vm/drop_caches && sync; echo 2 > /proc/sys/vm/drop_caches && sync; echo 3 > /proc/sys/vm/drop_caches
-0 2 * * * DEBIAN_FRONTEND=noninteractive sudo apt-get update && sudo apt-get upgrade -y
-0 3 * * * sudo reboot
-0 4 * * 7 find /var/log -type f -name \"*.log\" -mtime +7 -delete"
+0 3 * * * sync; echo 1 > /proc/sys/vm/drop_caches && sync; echo 2 > /proc/sys/vm/drop_caches && sync; echo 3 > /proc/sys/vm/drop_caches
+30 0 */3 * * DEBIAN_FRONTEND=noninteractive sudo apt-get update && sudo apt-get upgrade -y
+0 4 */2 * * sudo reboot
+0 5 * * 7 find /var/log -type f -name \"*.log\" -mtime +7 -delete"
 
 # Ezafe kardane cron jobs be crontab
 (crontab -l; echo "$CRON_JOBS") | crontab -
 
-echo "✅ Cron jobs ba movafaghiat ezafe shod!"
-echo "✅ Cron haye faal dar hal hazer:"
+echo "✅ Cron jobs baraye panel VPN ba movafaghiat ezafe shod!"
+echo "✅ کرون جاب‌های فعال در حال حاضر:"
 sleep 1
 crontab -l
+
+echo ""
+echo "📋 زمان‌بندی کرون جاب‌ها:"
+echo "🔄 پاک‌سازی Cache: هر روز ساعت 3 صبح"
+echo "📦 آپدیت سیستم: هر 3 روز ساعت 12:30 شب"
+echo "🔄 ریبوت سرور: هر 2 روز ساعت 4 صبح (برای بهبود تانل‌ها!)"
+echo "🗑️ پاک‌سازی لاگ‌ها: یکشنبه‌ها ساعت 5 صبح"
